@@ -19,9 +19,11 @@ can_bus = CAN(spi, cs, loopback=False, silent=True)
 c = 0
 x = True
 
+# Set the LED GPIO pins
 led = digitalio.DigitalInOut(board.GP28)
 led.direction = digitalio.Direction.OUTPUT
 
+# Initialize the USB device
 usb_device = usb_cdc.data
 
 # Set the receiver to listening and display the messages and sender ID
@@ -31,6 +33,7 @@ while True:
         for _i in range(message_count):
             msg = listener.receive()
             print("Message from ", hex(msg.id))
+            # Check if the CAN HAT is trying to write data over the GPIO pins
             if isinstance(msg, Message):
                 print("Message data:", msg.data)
                 led.value = True
@@ -39,6 +42,7 @@ while True:
                 sleep(1)
                 x = True
                 while x == True:
+                    # Write message to serial port
                     usb_device.write(msg.data)
                     sleep(1)
                     x = False
