@@ -59,3 +59,5 @@ while True:
     root.update()
     checkSerialPort()
     canvas.config(scrollregion=canvas.bbox('all'))
+
+    
