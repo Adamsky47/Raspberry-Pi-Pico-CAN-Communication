@@ -32,7 +32,7 @@ while True:
         message_count = listener.in_waiting()
         for _i in range(message_count):
             msg = listener.receive()
-            print("Message from ", hex(msg.id))
+            print("Message from: ", hex(msg.id))
             # Check if the CAN HAT is trying to write data over the GPIO pins
             if isinstance(msg, Message):
                 print("Message data:", msg.data)
